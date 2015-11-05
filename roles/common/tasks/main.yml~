@@ -1,0 +1,61 @@
+---
+- name: Update All packages
+  become: yes
+  become_user: root
+  dnf: >
+    name=* state=latest
+  when: ansible_os_family == "RedHat"
+
+- name: Install common packages
+  become: yes
+  become_user: root
+  dnf: >
+    name={{ item }} state=latest
+  when: ansible_os_family == "RedHat"
+  with_items:
+    - "git"
+    - "gcc"
+    - "make"
+    - "gcc-c++"
+    - "kernel-devel"
+    - "python-virtualenv"
+    - "htop"
+    - "nload"
+    - "mlocate"
+    - "policycoreutils-python"
+    - "tmux"
+    - "net-tools"
+    - "emacs-nox"
+    - "httpd-tools"
+    - "wget"
+    - "curl"
+    - "bind-utils"
+    - "nc"
+    - "docker"
+    - "golang"
+    - "python3-devel"
+    - "ruby"
+    - "vagrant"
+    - "libvirt"
+    - "guake"
+    - "atom"
+    - "git"
+    - "ethtool"
+    - "vagrant-libvirt"
+    - "rpmfusion-free-release"
+
+- stat: path=/usr/bin/term
+  register: term
+
+- name: create a shortcut for the gnome-terminall called term
+  command: sudo ln -s /usr/bin/gnome-terminal /usr/bin/term
+  when: not term.stat.exists
+
+- name: Remove current setup
+  command: /usr/bin/rm -rf /home/ipalade/.emacs.d 
+
+- name: Fetch emacs setup repo
+  git: repo=https://github.com/PI-Victor/.emacs.d.git dest=/home/ipalade/.emacs.d clone=yes
+  
+- name: copy the .emacs to ~
+  command: cp -p /home/ipalade/emacs.d/.emacs /home/ipalade/

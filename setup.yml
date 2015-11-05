@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  user: vectra
+
+  
+  vars_files:
+    - roles/common/vars/all
+  roles:
+    - role: common
