@@ -36,11 +36,13 @@
     - "docker"
     - "golang"
     - "python3-devel"
+    - "python-virtualenv"
+    - "python3-virtualenv"
     - "ruby"
     - "vagrant"
     - "libvirt"
     - "guake"
-    - "atom"
+#    - "atom"
     - "git"
     - "ethtool"
     - "vagrant-libvirt"
@@ -58,19 +60,19 @@
   when: not term.stat.exists
 
 - name: Remove current setup
-  command: /usr/bin/rm -rf /home/ipalade/.emacs.d 
+  command: /usr/bin/rm -rf /home/{{ user_name }}/.emacs.d 
 
 - name: Fetch emacs setup repo
-  git: repo=https://github.com/PI-Victor/.emacs.d.git dest=/home/ipalade/.emacs.d clone=yes
+  git: repo=https://github.com/PI-Victor/.emacs.d.git dest=/home/{{ user_name }}/.emacs.d clone=yes
   
 - name: copy the .emacs to ~
-  command: cp -p /home/ipalade/.emacs.d/.emacs /home/ipalade/
+  command: cp -p /home/{{ user_name }}/.emacs.d/.emacs /home/{{ user_name }}/
 
 - name: Fetch tmux setup repo
-  git: repo=https://github.com/PI-Victor/.tmux_conf.git dest=/home/ipalade/.tmux_conf clone=yes
+  git: repo=https://github.com/PI-Victor/.tmux_conf.git dest=/home/{{ user_name }}/.tmux_conf clone=yes
 
 - name: copy the .tmux.conf to ~
-  command: cp -p /home/ipalade/.tmux_conf/.tmux.conf /home/ipalade/
+  command: cp -p /home/{{ user_name }}/.tmux_conf/.tmux.conf /home/{{ user_name }}/
 
 - name: Ensure docker is added to systemctl
   become: yes

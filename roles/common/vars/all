@@ -1,3 +1,4 @@
-fedora_setup: dev-lab
+fedora_setup: worklab
 hukot_host: x.thecodeflavour.org
 rpilab_host: 2a00:1028:83a6:d4a:ba27:ebff:fed1:583c
+user_name: misfit
