@@ -32,6 +32,17 @@
     - "wget"
     - "curl"
     - "bind-utils"
+    - "kernel-headers"
+    - "dkms"
+    - "konversation"
+    - "@kde-desktop"
+    - "@xfce-desktop"
+    - "@lxde-desktop"
+    - "@mate-desktop"
+    - "@kde-desktop"
+    - "unzip"
+    - "icedtea-web"
+    - "java-openjdk"
     - "nc"
     - "docker"
     - "golang"
@@ -42,7 +53,8 @@
     - "vagrant"
     - "libvirt"
     - "guake"
-#    - "atom"
+    - "unrar"
+    - "p7zip"
     - "git"
     - "ethtool"
     - "vagrant-libvirt"
@@ -60,11 +72,11 @@
   when: not term.stat.exists
 
 - name: Remove current setup
-  command: /usr/bin/rm -rf /home/{{ user_name }}/.emacs.d 
+  command: /usr/bin/rm -rf /home/{{ user_name }}/.emacs.d
 
 - name: Fetch emacs setup repo
   git: repo=https://github.com/PI-Victor/.emacs.d.git dest=/home/{{ user_name }}/.emacs.d clone=yes
-  
+
 - name: copy the .emacs to ~
   command: cp -p /home/{{ user_name }}/.emacs.d/.emacs /home/{{ user_name }}/
 
@@ -83,3 +95,6 @@
   become: yes
   become_user: root
   command: /usr/bin/npm install -g bower --allow-root
+
+  # dnf config-manager --add-repo=http://negativo17.org/repos/fedora-spotify.repo
+# dnf install spotify-client

@@ -1,8 +1,6 @@
 ---
 - hosts: localhost
-  user: 
-
-  
+    
   vars_files:
     - roles/common/vars/all
   roles:
